@@ -96,5 +96,4 @@ public class Example
                 RTBRedoUndo[StackCount] = richTextBoxPrintCtrl1.Text;
             }
    
-   
 		}
