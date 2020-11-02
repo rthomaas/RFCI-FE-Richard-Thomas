@@ -1,17 +1,37 @@
 import java.util.Scanner;
 public class Example
 {
+	public void UndoCode()
+        {
+            IsRedoUndo = true;
+            if (StackCount > 0 && RTBRedoUndo[StackCount - 1] != null)
+            {
+                StackCount = StackCount - 1;
+                richTextBoxPrintCtrl1.Text = RTBRedoUndo[StackCount];
+            }
+        }
+	public void RedoCode()
+        {
+            if (IsRedoUndo == false && richTextBoxPrintCtrl1.Text.Substring(richTextBoxPrintCtrl1.Text.Length - 1, 1) == " ")
+
+                IsRedoUndo = true;
+            if (StackCount > 0 && RTBRedoUndo[StackCount + 1] != null)
+            {
+                StackCount = StackCount + 1;
+                richTextBoxPrintCtrl1.Text = RTBRedoUndo[StackCount];
+            }
+		
    public static void main(String args[])
    {
 	int counter, i=0, j=0, temp;
 	int number[] = new int[100];
 	Scanner scanner = new Scanner(System.in);
-	System.out.print("How many elements you want to enter: ");
+	System.out.print(": ");
 	counter = scanner.nextInt();
 
 	for(i=0; i<counter; i++)
 	{
-	    System.out.print("Enter Array Element"+(i+1)+": ");
+	    System.out.print("Ketik kalimat"+(i+1)+": ");
 	    number[i] = scanner.nextInt();
 	}
 
@@ -27,10 +47,52 @@ public class Example
 	   j--;
 	}
 
-	System.out.print("Reversed array: ");
+	System.out.print("Reversed: ");
 	for(i=0; i<counter; i++)
 	{
 	   System.out.print(number[i]+ "  ");
 	}       
    }
-}
+   
+    public struct UndoSection
+    {
+        public string Undo;
+        public int Index;
+
+        public UndoSection(int index, string undo)
+        {
+            Index = index;
+            Undo = undo;
+        }
+ private void richTextBoxPrintCtrl1_TextChanged(object sender, EventArgs e)
+        {
+            {
+                OldLength = richTextBoxPrintCtrl1.Text.Length; System.Text.RegularExpressions.MatchCollection wordColl = System.Text.RegularExpressions.Regex.Matches(richTextBoxPrintCtrl1.Text, "'?([a-zA-z'-]+)'?");
+                counter.Text = wordColl.Count.ToString();
+            }
+            try
+            {
+                if (IsRedoUndo == false && (richTextBoxPrintCtrl1.Text.Substring(richTextBoxPrintCtrl1.Text.Length - 1, 1) == " " || richTextBoxPrintCtrl1.Text.Substring(richTextBoxPrintCtrl1.Text.Length - 1, 1) == ","))
+                {
+                    StackCount = StackCount + 1;
+                    RTBRedoUndo[StackCount] = richTextBoxPrintCtrl1.Text;
+                }
+            }
+            catch { }
+
+        }
+	public string[] RTBRedoUndo;
+        public int StackCount = 0;
+        public int OldLength = 0;
+        public int ChangeToSave = 5;
+        public bool IsRedoUndo = false;
+
+        public void RTBTextChanged()
+        {
+            if (richTextBoxPrintCtrl1.TextLength - OldLength >= ChangeToSave | richTextBoxPrintCtrl1.TextLength - OldLength <= ChangeToSave)
+            {
+                StackCount += 1;
+                RTBRedoUndo[StackCount] = richTextBoxPrintCtrl1.Text;
+            }
+   
+		}
