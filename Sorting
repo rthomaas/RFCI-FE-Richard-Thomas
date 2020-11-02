@@ -5,7 +5,6 @@ public class JavaExample
     {
     	int count, temp;
     	
-    	//User inputs the array size
         Scanner scan = new Scanner(System.in);
         System.out.print("Berapa banyak angka: ");
         count = scan.nextInt();
@@ -36,3 +35,4 @@ public class JavaExample
         System.out.print(num[count - 1]);
     }
 }
+
